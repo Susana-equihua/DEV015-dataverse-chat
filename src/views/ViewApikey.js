@@ -28,13 +28,13 @@ export const ApiKey = () => {
     </div>
     <button id= "apiClear">Limpiar
     </button>
-    <button type="submit" id="continue">Continuar
+    <button id="continue">Continuar
     </button>
   </form>
   `;
 
   const saveApiButton = viewApi.querySelector("#continue");
-  saveApiButton.addEventListener("click", () => {
+  saveApiButton.addEventListener("click", () => { 
     const userApi = viewApi.querySelector("#inputApikey").value;
     setApiKey("inputApiKey", userApi);
     navigateTo("/");

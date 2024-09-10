@@ -1,4 +1,4 @@
-import data from "../data/dataset.js";
+import {data} from "../data/dataset.js";
 import { filterData, sortData, computeStats } from "../lib/dataFunctions.js";
 import { renderItems } from "../components/cardsHome.js";
 import { navigateTo } from "../router.js";
@@ -199,10 +199,10 @@ const Home = (/* props */) => {
   //? FUNCIONES DE FILTRADO:
   const elCards = viewHome.querySelector('section[id="cards"]');
   const originalData = elCards.appendChild(renderItems(data));
-  console.log(
+  /*console.log(
     "Imprimiendo todas las tarjetas dentro del ul, renderizada en el html: ",
     originalData
-  );
+  );*/
 
   let filteredData = "";
 
