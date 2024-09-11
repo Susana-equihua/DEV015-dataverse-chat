@@ -1,11 +1,20 @@
-export const renderMessage = ( send, receiver) => {
+export const renderMessage = ( senderMessage, receiverMessage) => {
   const messageContainer = document.createElement('div');
   messageContainer.setAttribute("class","containerMessage");
-  const msg = []
-  msg.forEach(() =>{
-    const message = document.createElement('div');
-    message.setAttribute("class","mensaje");
-    message.innerHTML = send && receiver;    
-  });
 
-}
+  if (senderMessage) { //Mensaje de usuario
+    const userMessage = document.createElement('div');
+    userMessage.setAttribute('class','messageUser');
+    userMessage.innerHTML = senderMessage;
+    messageContainer.appendChild(userMessage);
+  }
+  
+  if (receiverMessage) { // Respuesta de la API
+    const aiMessage = document.createElement('div');
+    aiMessage.setAttribute('class','messageReceiver');
+    aiMessage.textContent = receiverMessage;
+    messageContainer.appendChild(aiMessage);
+  }
+  return messageContainer
+};
+

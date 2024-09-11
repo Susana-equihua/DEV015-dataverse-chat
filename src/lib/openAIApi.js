@@ -1,6 +1,6 @@
 import { getApiKey } from "./apiKey.js";  //Conectar Open AI a través de la API Key
 
-export const communicateWithOpenAI = async (messages, receiver) => {  //Declara una función asíncrona (async) 
+export const communicateWithOpenAI = async (messages, receiver, context) => {  //Declara una función asíncrona (async) 
 
   const myApikey = getApiKey("inputApiKey"); 
   const openAIurl = "https://api.openai.com/v1/chat/completions";   // URL que proporciona OpenAI para poder acceder a su API
@@ -21,9 +21,7 @@ export const communicateWithOpenAI = async (messages, receiver) => {  //Declara 
         messages: [   //Arreglo de mensajes que se enviarán al modelo OpenAI para generar la respuesta
           {
             role: "system",   //Instrucciones al modelo para su comportamiento durante toda la conversación
-            content: `Eres ${receiver} una mascota de Disney. Puedes preguntar el nombre del usuario para mencionarlo solo cuando
-             sea necesario. Mantén la conversación coherente con los mensajes que recibes del usuario. Usa un tono relajado, informal, 
-             divertido y juguetón. Solo saluda al inicio de la conversación, no en cada respuesta.`, 
+            content: `Eres ${receiver} una mascota de Disney. Utiliza la información de ${context} para responder los mensjaes. Puedes preguntar el nombre del usuario para mencionarlo solo cuando sea necesario. Mantén la conversación coherente con los mensajes que recibes del usuario. Usa un tono relajado, divertido y juguetón. No saludes en cada respuesta. No utilices emojis.`, 
           },
           {
             role: "user",   //Usuario que envía el mensaje
