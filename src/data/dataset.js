@@ -1,4 +1,4 @@
-export default [
+export const data = [
   {
     id: "pluto",
     name: "Pluto",
@@ -504,3 +504,12 @@ export default [
     },
   },
 ];
+
+/*export const renderCharacter = (id) => {
+  console.log(id);
+  return data.find((item) => item.id === id);
+};*/
+
+/*export const getCharacterById = (character) => {
+  return characters.find((characterOrigin) => characterOrigin.id === character);
+};*/

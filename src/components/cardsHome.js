@@ -1,3 +1,5 @@
+import { navigateTo } from "../router.js";
+
 export const renderItems = (data) => {
   const elementUl = document.createElement("ul");
   elementUl.setAttribute("class", "flex-container");
@@ -25,7 +27,7 @@ export const renderItems = (data) => {
           <div id="divIndividualMsgIcon">
             <div id="btnWrapHablemos">
               <span id="spanHablemos">¡Hablemos!</span>
-              <button id="individualMsgIcon">
+              <button id="individualMsgIcon" data-identifier="soy=${data.id}">
                 <img src="../../icons/individual-msg-icon.svg" alt="message-individual-icon">
               </button>
           </div>
@@ -33,6 +35,14 @@ export const renderItems = (data) => {
         </div>
       </div>
       `;
+
+    // FUNCIÓN PARA IR A LA VIST DEL CHAT INDIVIDUAL A TRVÉS DEL BOTÓN DE CHAT
+    const btnIndividualChat = elementLi.querySelector("#individualMsgIcon");
+    const btndataId = btnIndividualChat.dataset.identifier;  //Argumento para navigateTo como props{}; se renderizará en la URL del chat individual el id de cada mascota
+    
+    btnIndividualChat.addEventListener("click", () => {
+      navigateTo("/chat", btndataId); 
+    });
   });
   return elementUl;
 };
