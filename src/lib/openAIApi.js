@@ -9,7 +9,7 @@ export const communicateWithOpenAI = async (messages, receiver, context) => {  /
     throw new Error("API Key proporcionada no es válida");
   }
 
-  try { 
+  try { //Fetch retorna una promesa
     const res = await fetch(openAIurl, {  //await Esperar a que la promesa de fetch se resuelva para ejecutar el código
       method: "POST",   // Método HTTP que utilizará fetch, POST envía datos
       headers: {  
