@@ -16,38 +16,25 @@ export const IndividualChat = (props) => {
   viewChat.setAttribute("id", "individualChatContainer");
   viewChat.innerHTML = `
     <header id="headerChat">
-      <figure id="characterPhotoName">
-        <img src="${renderCharacter.url}" alt="Foto de perfil de ${renderCharacter.name}"> 
-      </figure>
-      <p id="characterName">${renderCharacter.name}</p>
-      <button id="chatOptions">
-        <i class="fa-solid fa-ellipsis" id="optionIcons"></i>
+      <button class= "profile">
+        <figure id="characterPhotoName" class="background-color-${renderCharacter.id}">
+         <img src="${renderCharacter.imageUrl}" alt="Foto de perfil de ${renderCharacter.name}"> 
+        </figure>
+        <div class="profileText">
+          <p id="characterName">${renderCharacter.name}</p>
+          <p id ="moreInfo">Información de la mascota</p>
+        </div>  
       </button>
 
       <div id="optionsIndividualChat">
-        <button id= "homeBack" class= "btnHome">
+        <button id= "homeBack" class= "btnHomeBack">
           <img src= "../icons/home.svg" alt= "Inicio">
-        </button>
-        <button class = "chatGroupBtn"> 
-          <img src= "../icons/message-group.svg" alt= "Chat Grupal">
         </button>
       </div>
     </header>
+
     <main id="mainChat">
       <div id="chatContainer">
-        <div id="mesaggeSent">
-          <div class="dialogueBubbles"></div>
-          <figure class="photoBubble" id="photoBubbleCharacter /* props */">
-            <img src="" alt="">
-          </figure>
-        </div>
-        <div id="mesaggeReceived">
-          <div class="dialogueBubbles"></div>
-          <figure class="photoBubble" id="photoBubbleUser">
-            <img src="" alt="">
-          </figure>
-        </div>
-        <p id="output"></p>
       </div>  
     </main>
     <footer id="footerIndividualChat">
@@ -61,18 +48,18 @@ export const IndividualChat = (props) => {
     `;
 
   //BOTÓN PARA VOLVER A HOME
-  const backHomeBtn = viewChat.querySelector("#homeBack");
-  backHomeBtn.addEventListener("click", () => {
+  const btnBackHome = viewChat.querySelector("#homeBack");
+  btnBackHome.addEventListener("click", () => {
     navigateTo("/");
   });
 
   //CONECTAR LA RESPUESTA DE OPEN AI CON LOS ELEMENTOS DEL CHAT
-  
+
   const characterId = props.soy; //Argumento para el segundo parámetro de comunicateWithOpenAI
   const idContext = renderCharacter.description;
   const messageUsuario = viewChat.querySelector("#typingBar"); //Input del mensaje
   const sendMessage = viewChat.querySelector("#btnChatSent"); //Botón que envía el mensaje
-  const mainContainer = viewChat.querySelector("#mainChat"); //Espacio dónde se renderizará el contenedor del chat
+  const mainContainer = viewChat.querySelector("#chatContainer"); //Espacio dónde se renderizará el contenedor del chat
 
   sendMessage.addEventListener("click", async () => {
     //console.log(messageUsuario.value); Comprobar que se envía mi mensaje
@@ -81,14 +68,17 @@ export const IndividualChat = (props) => {
     console.log(messageUsuario.value); //Imprimir el mensaje del usuario en la consola
 
     const userMessage = messageUsuario.value; // Guardar el mensaje del usuario
-    //Se guarda para poder utilizarlo como argumento en la función de renderizado 
+    //Se guarda para poder utilizarlo como argumento en la función de renderizado
     messageUsuario.value = ""; // Limpiar el input después de enviar
-
 
     const userMessageElement = renderMessage(userMessage, null); //Traer la función que renderiza los mensajes
     mainContainer.appendChild(userMessageElement); //Imprimir el mensaje del usuario en main
 
-    const response = await communicateWithOpenAI(userMessage, characterId, idContext); //Traer la función de la API para pasarle los argumentos
+    const response = await communicateWithOpenAI(
+      userMessage,
+      characterId,
+      idContext
+    ); //Traer la función de la API para pasarle los argumentos
 
     const aiResponse = response.choices[0].message.content; // Extraer la respuesta de la API
 
@@ -98,3 +88,23 @@ export const IndividualChat = (props) => {
   return viewChat;
 };
 
+//HTML para el menú de opciones
+/*<button id="chatOptions">
+<i class="fa-solid fa-ellipsis" id="optionIcons"></i>
+</button>
+<button class = "chatGroupBtn"> 
+          <img src= "../icons/message-group.svg" alt= "Chat Grupal">
+</button>
+
+ <div id="mesaggeSent">
+          <div class="dialogueBubbles"></div>
+          <figure class="photoBubble" id="photoBubbleCharacter ">
+          <img src="" alt="">
+          </figure>
+        </div>
+        <div id="mesaggeReceived">
+          <div class="dialogueBubbles"></div>
+          <figure class="photoBubble" id="photoBubbleUser">
+            <img src="" alt="">
+          </figure>
+        </div> */
