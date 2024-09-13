@@ -42,7 +42,7 @@ const Home = (/* props */) => {
         </div>
       </div>
     </header>
-    <main id="mainContenidoPrincipal">
+    <main id="mainContenidoPrincipal" data-identifier = "mainHome">
       <div class="container">
         <nav>
           <div id="barra-filtro-ordenar">
